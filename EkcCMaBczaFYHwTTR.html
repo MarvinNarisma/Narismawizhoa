@@ -1,0 +1,1007 @@
+<html><head><base href="." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elegant Login Form</title>
+<!-- Adding FontAwesome for social media icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Pangolin&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pangolin', cursive; /* Default font for regular text */
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a472a;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Forest Background Animation */
+.forest-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.tree {
+    position: absolute;
+    bottom: 0;
+    animation: sway 4s ease-in-out infinite;
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(2deg); }
+}
+
+.firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 140, 0.8);
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+}
+
+.falling-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+@keyframes fallingStar {
+    0% {
+        transform: translate(0, 0) rotate(45deg) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(300px, 300px) rotate(45deg) scale(0.1);
+        opacity: 0;
+    }
+}
+
+.star-tail {
+    position: absolute;
+    width: 20px;
+    height: 1px;
+    background: linear-gradient(to left, white, transparent);
+    transform-origin: left center;
+    transform: rotate(45deg);
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translate(100px, -100px); opacity: 0; }
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    transform: translateY(0);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    color: #1a472a;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Cabin Sketch', cursive;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.login-header p {
+    color: #2c5f2d;
+    font-size: 1.1rem;
+    font-family: 'Pangolin', cursive;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #6b48ff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(107, 72, 255, 0.1);
+}
+
+.form-group label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    padding: 0 5px;
+    color: #666;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-family: 'Pangolin', cursive;
+}
+
+.form-group input:focus ~ label,
+.form-group input:valid ~ label {
+    top: 0;
+    font-size: 0.8rem;
+    color: #6b48ff;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password a {
+    font-family: 'Pangolin', cursive;
+    font-weight: bold;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background: #2c5f2d;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    font-family: 'Cabin Sketch', cursive;
+    letter-spacing: 1px;
+}
+
+.login-button:hover {
+    background: #1a472a;
+    transform: translateY(-2px);
+}
+
+/* New Social Login Styles */
+.social-login {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.social-login p {
+    font-family: 'Pangolin', cursive;
+    font-size: 1rem;
+}
+
+.social-login p {
+    color: #666;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: #ddd;
+}
+
+.social-login p::before {
+    left: 0;
+}
+
+.social-login p::after {
+    right: 0;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.google {
+    background: #DB4437;
+}
+
+.facebook {
+    background: #4267B2;
+}
+
+.twitter {
+    background: #1DA1F2;
+}
+
+.social-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-family: 'Pangolin', cursive;
+    font-size: 1rem;
+}
+
+.register-link a {
+    font-family: 'Cabin Sketch', cursive;
+    font-weight: bold;
+    color: #2c5f2d;
+}
+
+.error-message {
+    color: #ff4881;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Modal Styles */
+.platform-accounts-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    width: 90%;
+    max-width: 400px;
+}
+
+.platform-accounts-modal h2 {
+    font-family: 'Cabin Sketch', cursive;
+    color: #1a472a;
+    margin-bottom: 1rem;
+}
+
+.account-list {
+    margin: 1rem 0;
+}
+
+.account-option {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.account-option:hover {
+    background: #f5f5f5;
+    transform: translateX(5px);
+}
+
+.account-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.account-details {
+    flex: 1;
+}
+
+.account-name {
+    font-family: 'Cabin Sketch', cursive;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.account-email {
+    font-family: 'Pangolin', cursive;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.modal-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cabin Sketch', cursive;
+    letter-spacing: 1px;
+}
+
+.cancel-button {
+    background: #eee;
+    color: #333;
+}
+
+.add-account-button {
+    background: #2c5f2d;
+    color: white;
+}
+
+.modal-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Update Tetris container styles */
+#tetrisContainer h2 {
+    font-family: 'Cabin Sketch', cursive;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#score, #level {
+    font-family: 'Pangolin', cursive;
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+/* New styles for big shooting star */
+.big-shooting-star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.big-shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    transform-origin: left center;
+    transform: rotate(-45deg) translateX(-50%);
+}
+
+@keyframes bigShootingStar {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(200vw, 200vh) scale(0.2);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+<body>
+    <div class="forest-background" id="forestBackground"></div>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Welcome Back</h1>
+            <p>Please enter your credentials to login</p>
+        </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="email" required>
+                <label for="email">Email Address</label>
+                <div class="error-message" id="emailError"></div>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" required>
+                <label for="password">Password</label>
+                <div class="error-message" id="passwordError"></div>
+            </div>
+            <div class="forgot-password">
+                <a href="https://example.com/forgot-password">Forgot Password?</a>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+        
+        <div class="social-login">
+            <p>Or continue with</p>
+            <div class="social-buttons">
+                <button onclick="socialLogin('google')" class="social-button google">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button onclick="socialLogin('facebook')" class="social-button facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button onclick="socialLogin('twitter')" class="social-button twitter">
+                    <i class="fab fa-twitter"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="register-link">
+            Don't have an account? <a href="https://example.com/register">Register here</a>
+        </div>
+    </div>
+
+    <div id="tetrisContainer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999;">
+        <div style="position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="color: white; margin-bottom: 20px;">
+                <h2>Welcome! Let's Play Tetris</h2>
+                <div id="score">Score: 0</div>
+                <div id="level">Level: 1</div>
+            </div>
+            <canvas id="tetris" width="240" height="400" style="border: 2px solid white;"></canvas>
+            <div style="margin-top: 20px;">
+                <button id="startTetris" class="login-button" style="width: auto; padding: 10px 20px; margin: 0 10px;">Start Game</button>
+                <button id="continueToDashboard" class="login-button" style="width: auto; padding: 10px 20px; margin: 0 10px;">Continue to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="platform-accounts-modal" id="accountsModal">
+        <h2 id="modalTitle">Choose Account</h2>
+        <div class="account-list" id="accountList">
+            <!-- Account options will be populated dynamically -->
+        </div>
+        <div class="modal-actions">
+            <button class="modal-button cancel-button" onclick="closeAccountModal()">Cancel</button>
+            <button class="modal-button add-account-button" onclick="addNewAccount()">Add Account</button>
+        </div>
+    </div>
+
+    <script>
+    // Form validation logic
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        document.querySelectorAll('.error-message').forEach(error => error.style.display = 'none');
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        let hasError = false;
+
+        if (!email) {
+            showError('emailError', 'Email is required');
+            hasError = true;
+        } else if (!isValidEmail(email)) {
+            showError('emailError', 'Please enter a valid email address');
+            hasError = true;
+        }
+
+        if (!password) {
+            showError('passwordError', 'Password is required');
+            hasError = true;
+        } else if (password.length < 6) {
+            showError('passwordError', 'Password must be at least 6 characters long');
+            hasError = true;
+        }
+
+        if (hasError) {
+            const loginContainer = document.querySelector('.login-container');
+            loginContainer.classList.add('shake');
+            setTimeout(() => {
+                loginContainer.classList.remove('shake');
+            }, 500);
+            return;
+        }
+
+        simulateLogin(email, password);
+    });
+
+    // Updated simulateLogin function
+    function simulateLogin(email, password) {
+        const loginButton = document.querySelector('.login-button');
+        loginButton.textContent = 'Logging in...';
+        loginButton.disabled = true;
+
+        // Simulate API call
+        setTimeout(() => {
+            if (email === 'demo@example.com' && password === 'password123') {
+                loginButton.style.backgroundColor = '#4CAF50';
+                loginButton.textContent = 'Success!';
+                
+                // Show Tetris game instead of redirecting
+                document.getElementById('tetrisContainer').style.display = 'block';
+                initTetris();
+            } else {
+                loginButton.style.backgroundColor = '#f44336';
+                loginButton.textContent = 'Login Failed';
+                loginButton.disabled = false;
+                
+                showError('emailError', 'Invalid email or password');
+                
+                setTimeout(() => {
+                    loginButton.style.backgroundColor = '#2c5f2d';
+                    loginButton.textContent = 'Login';
+                }, 2000);
+            }
+        }, 1500);
+    }
+
+    let canvas, ctx, gameLoop;
+    const BLOCK_SIZE = 20;
+    const BOARD_WIDTH = 12;
+    const BOARD_HEIGHT = 20;
+    let score = 0;
+    let level = 1;
+    let board = [];
+    let currentPiece;
+    let gameActive = false;
+
+    const PIECES = [
+        [
+            [1, 1],
+            [1, 1]
+        ], // Square
+        [
+            [0, 1, 0],
+            [1, 1, 1]
+        ], // T
+        [
+            [1, 1, 0],
+            [0, 1, 1]
+        ], // Z
+        [
+            [0, 1, 1],
+            [1, 1, 0]
+        ], // S
+        [
+            [1, 0, 0],
+            [1, 1, 1]
+        ], // L
+        [
+            [0, 0, 1],
+            [1, 1, 1]
+        ], // J
+        [
+            [1, 1, 1, 1]
+        ] // I
+    ];
+
+    function initTetris() {
+        canvas = document.getElementById('tetris');
+        ctx = canvas.getContext('2d');
+        
+        // Initialize board
+        for(let y = 0; y < BOARD_HEIGHT; y++) {
+            board[y] = [];
+            for(let x = 0; x < BOARD_WIDTH; x++) {
+                board[y][x] = 0;
+            }
+        }
+        
+        document.getElementById('startTetris').addEventListener('click', startGame);
+        document.getElementById('continueToDashboard').addEventListener('click', () => {
+            window.location.href = 'https://example.com/dashboard';
+        });
+        
+        document.addEventListener('keydown', handleInput);
+    }
+
+    function startGame() {
+        if(gameActive) return;
+        gameActive = true;
+        score = 0;
+        level = 1;
+        updateScore();
+        spawnPiece();
+        gameLoop = setInterval(update, 1000 / level);
+    }
+
+    function spawnPiece() {
+        const pieceIdx = Math.floor(Math.random() * PIECES.length);
+        currentPiece = {
+            shape: PIECES[pieceIdx],
+            x: Math.floor(BOARD_WIDTH / 2) - Math.floor(PIECES[pieceIdx][0].length / 2),
+            y: 0
+        };
+    }
+
+    function update() {
+        if(!moveDown()) {
+            placePiece();
+            clearLines();
+            spawnPiece();
+            if(checkCollision(currentPiece.shape, currentPiece.x, currentPiece.y)) {
+                gameOver();
+            }
+        }
+        draw();
+    }
+
+    function moveDown() {
+        if(!checkCollision(currentPiece.shape, currentPiece.x, currentPiece.y + 1)) {
+            currentPiece.y++;
+            return true;
+        }
+        return false;
+    }
+
+    function moveLeft() {
+        if(!checkCollision(currentPiece.shape, currentPiece.x - 1, currentPiece.y)) {
+            currentPiece.x--;
+        }
+    }
+
+    function moveRight() {
+        if(!checkCollision(currentPiece.shape, currentPiece.x + 1, currentPiece.y)) {
+            currentPiece.x++;
+        }
+    }
+
+    function rotate() {
+        const rotated = currentPiece.shape[0].map((_, i) =>
+            currentPiece.shape.map(row => row[i]).reverse()
+        );
+        if(!checkCollision(rotated, currentPiece.x, currentPiece.y)) {
+            currentPiece.shape = rotated;
+        }
+    }
+
+    function checkCollision(shape, x, y) {
+        for(let row = 0; row < shape.length; row++) {
+            for(let col = 0; col < shape[row].length; col++) {
+                if(shape[row][col]) {
+                    if(y + row >= BOARD_HEIGHT ||
+                       x + col < 0 ||
+                       x + col >= BOARD_WIDTH ||
+                       board[y + row][x + col]) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    function placePiece() {
+        for(let row = 0; row < currentPiece.shape.length; row++) {
+            for(let col = 0; col < currentPiece.shape[row].length; col++) {
+                if(currentPiece.shape[row][col]) {
+                    board[currentPiece.y + row][currentPiece.x + col] = 1;
+                }
+            }
+        }
+    }
+
+    function clearLines() {
+        for(let row = BOARD_HEIGHT - 1; row >= 0; row--) {
+            if(board[row].every(cell => cell === 1)) {
+                board.splice(row, 1);
+                board.unshift(new Array(BOARD_WIDTH).fill(0));
+                score += 100 * level;
+                if(score % 1000 === 0) {
+                    level++;
+                    clearInterval(gameLoop);
+                    gameLoop = setInterval(update, 1000 / level);
+                }
+                updateScore();
+            }
+        }
+    }
+
+    function updateScore() {
+        document.getElementById('score').textContent = `Score: ${score}`;
+        document.getElementById('level').textContent = `Level: ${level}`;
+    }
+
+    function gameOver() {
+        gameActive = false;
+        clearInterval(gameLoop);
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Game Over!', canvas.width/2, canvas.height/2);
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw board
+        for(let row = 0; row < BOARD_HEIGHT; row++) {
+            for(let col = 0; col < BOARD_WIDTH; col++) {
+                if(board[row][col]) {
+                    ctx.fillStyle = '#2c5f2d';
+                    ctx.fillRect(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE-1, BLOCK_SIZE-1);
+                }
+            }
+        }
+        
+        // Draw current piece
+        ctx.fillStyle = '#4CAF50';
+        for(let row = 0; row < currentPiece.shape.length; row++) {
+            for(let col = 0; col < currentPiece.shape[row].length; col++) {
+                if(currentPiece.shape[row][col]) {
+                    ctx.fillRect(
+                        (currentPiece.x + col) * BLOCK_SIZE,
+                        (currentPiece.y + row) * BLOCK_SIZE,
+                        BLOCK_SIZE-1,
+                        BLOCK_SIZE-1
+                    );
+                }
+            }
+        }
+    }
+
+    function handleInput(e) {
+        if(!gameActive) return;
+        
+        switch(e.key) {
+            case 'ArrowLeft':
+                moveLeft();
+                break;
+            case 'ArrowRight':
+                moveRight();
+                break;
+            case 'ArrowDown':
+                moveDown();
+                break;
+            case 'ArrowUp':
+                rotate();
+                break;
+        }
+        draw();
+    }
+
+    function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Sample account data (in a real app, this would come from an API)
+    const platformAccounts = {
+        google: [
+            { name: 'John Doe', email: 'john.doe@gmail.com', avatar: 'JD' },
+            { name: 'Jane Smith', email: 'jane.smith@gmail.com', avatar: 'JS' }
+        ],
+        facebook: [
+            { name: 'John Doe', email: 'john.doe@facebook.com', avatar: 'JD' }
+        ],
+        twitter: [
+            { name: '@johndoe', email: 'john.doe@twitter.com', avatar: 'JD' }
+        ]
+    };
+
+    // Update the socialLogin function
+    function socialLogin(platform) {
+        const modal = document.getElementById('accountsModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalTitle = document.getElementById('modalTitle');
+        const accountList = document.getElementById('accountList');
+        
+        modalTitle.textContent = `Choose ${platform.charAt(0).toUpperCase() + platform.slice(1)} Account`;
+        accountList.innerHTML = '';
+        
+        // Populate account options
+        platformAccounts[platform].forEach(account => {
+            const accountOption = document.createElement('div');
+            accountOption.className = 'account-option';
+            accountOption.innerHTML = `
+                <div class="account-avatar">${account.avatar}</div>
+                <div class="account-details">
+                    <div class="account-name">${account.name}</div>
+                    <div class="account-email">${account.email}</div>
+                </div>
+            `;
+            accountOption.onclick = () => selectAccount(platform, account);
+            accountList.appendChild(accountOption);
+        });
+        
+        modal.style.display = 'block';
+        modalBackdrop.style.display = 'block';
+    }
+
+    function selectAccount(platform, account) {
+        // Here you would typically handle the authentication process
+        console.log(`Selected ${platform} account:`, account);
+        closeAccountModal();
+        
+        // Simulate login success
+        const loginButton = document.querySelector('.login-button');
+        loginButton.textContent = 'Success!';
+        loginButton.style.backgroundColor = '#4CAF50';
+        
+        // Show Tetris game
+        setTimeout(() => {
+            document.getElementById('tetrisContainer').style.display = 'block';
+            initTetris();
+        }, 1000);
+    }
+
+    function closeAccountModal() {
+        const modal = document.getElementById('accountsModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        modal.style.display = 'none';
+        modalBackdrop.style.display = 'none';
+    }
+
+    function addNewAccount() {
+        // Here you would typically redirect to the platform's OAuth flow
+        alert('This would redirect to the platform\'s login page to add a new account.');
+        closeAccountModal();
+    }
+
+    // Move the createForest() function definition here
+    function createForest() {
+        const forestBackground = document.getElementById('forestBackground');
+        
+        // Create trees
+        for(let i = 0; i < 15; i++) {
+            const tree = document.createElement('div');
+            tree.className = 'tree';
+            tree.style.left = `${Math.random() * 100}%`;
+            tree.style.animationDelay = `${Math.random() * 2}s`;
+            
+            // Create tree using SVG
+            tree.innerHTML = `
+                <svg width="100" height="150" viewBox="0 0 100 150">
+                    <path d="M50 0 L80 50 L65 50 L85 90 L70 90 L90 130 L10 130 L30 90 L15 90 L35 50 L20 50 Z" 
+                          fill="#2c5f2d"/>
+                    <rect x="45" y="130" width="10" height="20" fill="#654321"/>
+                </svg>
+            `;
+            
+            // Randomize tree size
+            const scale = 0.5 + Math.random() * 0.5;
+            tree.style.transform = `scale(${scale})`;
+            
+            forestBackground.appendChild(tree);
+        }
+        
+        // Create fireflies
+        for(let i = 0; i < 20; i++) {
+            const firefly = document.createElement('div');
+            firefly.className = 'firefly';
+            firefly.style.left = `${Math.random() * 100}%`;
+            firefly.style.top = `${Math.random() * 100}%`;
+            firefly.style.animationDelay = `${Math.random() * 4}s`;
+            forestBackground.appendChild(firefly);
+        }
+
+        // Create big shooting stars
+        setInterval(createBigShootingStar, 8000); // Create big shooting star every 8 seconds
+        
+        // Create falling stars
+        function createFallingStar() {
+            const star = document.createElement('div');
+            star.className = 'falling-star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = '0';
+            
+            const tail = document.createElement('div');
+            tail.className = 'star-tail';
+            star.appendChild(tail);
+            
+            forestBackground.appendChild(star);
+            
+            star.style.animation = `fallingStar ${2 + Math.random() * 2}s linear`;
+            
+            star.addEventListener('animationend', () => {
+                forestBackground.removeChild(star);
+            });
+        }
+        
+        // Create falling stars periodically
+        setInterval(createFallingStar, 2000);
+    }
+
+    function createBigShootingStar() {
+        const star = document.createElement('div');
+        star.className = 'big-shooting-star';
+        
+        // Random starting position in the top-left quadrant
+        star.style.left = `${Math.random() * 30}%`;
+        star.style.top = `${Math.random() * 30}%`;
+        
+        // Add animation
+        star.style.animation = 'bigShootingStar 4s ease-out';
+        
+        document.getElementById('forestBackground').appendChild(star);
+        
+        // Remove the star after animation
+        star.addEventListener('animationend', () => {
+            document.getElementById('forestBackground').removeChild(star);
+        });
+    }
+
+    // Add event listener for DOM content loaded to ensure DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        createForest();
+        
+        setInterval(() => {
+            const forestBackground = document.getElementById('forestBackground');
+            const fireflies = forestBackground.querySelectorAll('.firefly');
+            fireflies.forEach(firefly => {
+                firefly.style.left = `${Math.random() * 100}%`;
+                firefly.style.top = `${Math.random() * 100}%`;
+            });
+        }, 4000);
+    });
+    </script>
+</body></html>
